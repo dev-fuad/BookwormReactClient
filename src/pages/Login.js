@@ -7,10 +7,9 @@ import { login } from "../store/actions/auth";
 class LoginPage extends Component {
   state = {  }
 
-  submit = (data) => {
+  submit = (data) =>
     this.props.login(data)
         .then(() => this.props.history.push("/"));
-  }
 
   render() {
     return (
@@ -23,7 +22,7 @@ class LoginPage extends Component {
 }
 
 LoginPage.propTypes = {
-  login: PropTypes.func.isRequired,
+  login  : PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired

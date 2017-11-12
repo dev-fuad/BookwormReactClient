@@ -5,5 +5,6 @@ export default {
     login: credentials =>
       axios.post("/api/auth", { credentials })
           .then(res => res.data.user)
+          // .catch(err => console.log(`resError: ${err}`))
   }
 };
