@@ -7,6 +7,7 @@ import GuestRoute from "./routes/GuestRoute";
 
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
 import DashboardPage from "./pages/Dashboard";
 
 const App = ({ location }) => (
@@ -14,6 +15,7 @@ const App = ({ location }) => (
     <h1>BookWorm</h1>
     <Route location={location} path="/" exact component={HomePage} />
     <GuestRoute location={location} path="/login" exact component={LoginPage} />
+    <GuestRoute location={location} path="/signup" exact component={RegisterPage} />
     <UserRoute location={location} path="/dashboard" exact component={DashboardPage} />
   </div>
 );
