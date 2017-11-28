@@ -17,5 +17,9 @@ export default {
       axios.post("/api/auth/validate_token", { token }),
     resetPassword: data =>
       axios.post("/api/auth/reset_password", { data })
+  },
+  books: {
+    search: query =>
+      axios.get(`/api/books/search?q=${ query }`)
   }
 };
