@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { Form, Dropdown } from "semantic-ui-react";
-import { search } from "../../store/actions/book";
+// import { search } from "../../store/actions/book";
 import axios from "axios";
 
 class SearchBookForm extends Component {
@@ -15,7 +15,7 @@ class SearchBookForm extends Component {
 
   onSearchChange = (e, data) => {
     clearTimeout(this.timer);
-    this.setState({ query: data });
+    this.setState({ query: data.searchQuery });
     this.timer = setTimeout(() => {
       this.fetchOptions();
     }, 1000);

@@ -8,6 +8,7 @@ import App from './App';
 import store from "./store"
 import { userLoggedIn } from "./store/actions/auth";
 import registerServiceWorker from './registerServiceWorker';
+import setAuthorizationHeader from './utilities/setAuth';
 
 if (localStorage.bookWormJWT) {
   const payload = decode(localStorage.bookWormJWT);
@@ -15,7 +16,8 @@ if (localStorage.bookWormJWT) {
     token    : localStorage.bookWormJWT,
     email    : payload.email,
     confirmed: payload.confirmed
-   };
+  };
+  setAuthorizationHeader(localStorage.bookWormJWT);
   store.dispatch(userLoggedIn(user));
 }
 

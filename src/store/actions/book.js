@@ -1,17 +1,35 @@
+import { normalize } from 'normalizr';
 import api from "../../providers/api";
-import { SEARCH_BOOKS } from "./types";
+import { SEARCH_BOOKS, BOOKS_FETCHED, BOOK_CREATED } from "./types";
+import { bookSchema } from '../../utilities/schemas';
 
-export const searchBookResults = searchResults => ({
+const searchBookResults = searchResults => ({
   type: SEARCH_BOOKS,
   searchResults
 });
 
-export const search = ({ query }) => () =>
-  api.books.search(query);
+const booksFetched = results => ({
+  type: BOOKS_FETCHED,
+  results
+});
+
+const bookCreated = results => ({
+  type: BOOK_CREATED,
+  results
+});
+
+export const search = ({ query }) => () => api.books.search(query);
 
 export const searchBooks = query => dispatch => {
-console.log("books");
-api.books.search(query).then(books => {
-    console.log(books);
-    dispatch(searchBookResults(books))
-  });}
+  api.books.search(query).then(books => {
+    dispatch(searchBookResults(books));
+  });
+};
+
+export const fetchBooks = () =>  dispatch =>
+  api.books.fetchAll()
+    .then(books => dispatch(booksFetched(normalize(books, [bookSchema]))));
+
+export const createBook = data => dispatch =>
+  api.books.create(data)
+    .then(book => dispatch(bookCreated(normalize(book, bookSchema))));

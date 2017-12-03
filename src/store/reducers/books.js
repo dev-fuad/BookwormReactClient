@@ -1,8 +1,11 @@
 import { createSelector } from "reselect";
-import { SEARCH_BOOKS } from "../actions/types";
+import { SEARCH_BOOKS, BOOKS_FETCHED, BOOK_CREATED } from "../actions/types";
 
 export default (state = {}, action) => {
   switch (action.type) {
+    case BOOKS_FETCHED:
+    case BOOK_CREATED:
+      return { ...state, ...action.results.entities.books };
     case SEARCH_BOOKS:
       console.log(action.searchResults);
       return action.searchResults;

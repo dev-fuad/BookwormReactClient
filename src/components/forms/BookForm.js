@@ -51,7 +51,7 @@ class BookForm extends Component {
     if (Object.keys(errors).length === 0) {
       this.setState({ loading: true });
       this.props
-        .submit(this.data)
+        .submit(this.state.data)
         .catch(err =>
           this.setState({ errors: err.response.data.errors, loading: false })
         );
@@ -80,7 +80,7 @@ class BookForm extends Component {
 
     return (
       <Segment>
-        <Form submit={this.onSubmit} loading={loading}>
+        <Form onSubmit={this.onSubmit} loading={loading}>
           <Grid columns="2" stackable>
             <Grid.Row>
               <Grid.Column>
@@ -111,11 +111,12 @@ class BookForm extends Component {
                 <Form.Field error={!!errors.pages}>
                   <label htmlFor="pages">Pages</label>
                   <input
-                    type="number"
+                    type="text"
+                    disabled={data.pages === undefined}
                     name="pages"
                     id="pages"
-                    value={data.pages}
-                    onChange={this.onChange}
+                    value={data.pages !== undefined ? data.pages : "Loading..."}
+                    onChange={this.onChangeNumber}
                   />
                   {errors.pages && <InlineError text={errors.pages} />}
                 </Form.Field>
@@ -146,7 +147,7 @@ BookForm.propTypes = {
     title: PropTypes.string.isRequired,
     authors: PropTypes.string.isRequired,
     covers: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    pages: PropTypes.number.isRequired
+    pages: PropTypes.number
   }).isRequired
 };
 
