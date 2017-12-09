@@ -1,13 +1,23 @@
 import { createSelector } from "reselect";
-import { SEARCH_BOOKS, BOOKS_FETCHED, BOOK_CREATED } from "../actions/types";
+import { SEARCH_BOOKS, BOOKS_FETCHED, BOOK_CREATED, BOOK_DELETED } from "../actions/types";
+
+// Methods
+
+const deleteProperty = (key, obj) => {
+  const { [key]: deletedItem, ...rest } = obj;
+  return rest;
+}
+
+// Reducer
 
 export default (state = {}, action) => {
   switch (action.type) {
     case BOOKS_FETCHED:
     case BOOK_CREATED:
       return { ...state, ...action.results.entities.books };
+    case BOOK_DELETED:
+      return deleteProperty(action.results, state);
     case SEARCH_BOOKS:
-      console.log(action.searchResults);
       return action.searchResults;
     default:
       return state;

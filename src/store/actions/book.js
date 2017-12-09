@@ -1,6 +1,6 @@
 import { normalize } from 'normalizr';
 import api from "../../providers/api";
-import { SEARCH_BOOKS, BOOKS_FETCHED, BOOK_CREATED } from "./types";
+import { SEARCH_BOOKS, BOOKS_FETCHED, BOOK_CREATED, BOOK_DELETED } from "./types";
 import { bookSchema } from '../../utilities/schemas';
 
 const searchBookResults = searchResults => ({
@@ -15,6 +15,11 @@ const booksFetched = results => ({
 
 const bookCreated = results => ({
   type: BOOK_CREATED,
+  results
+});
+
+const bookDeleted = results => ({
+  type: BOOK_DELETED,
   results
 });
 
@@ -33,3 +38,7 @@ export const fetchBooks = () =>  dispatch =>
 export const createBook = data => dispatch =>
   api.books.create(data)
     .then(book => dispatch(bookCreated(normalize(book, bookSchema))));
+
+export const deleteBook = data => dispatch =>
+  api.books.delete(data)
+    .then(() => dispatch(bookDeleted(data)));
