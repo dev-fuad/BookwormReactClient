@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.0",
-    "gravatar-url": "^2.0.0",
     "jwt-decode": "^2.2.0",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
